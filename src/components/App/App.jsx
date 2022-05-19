@@ -1,7 +1,7 @@
 import React from "react";
 import { Provider } from 'react-redux';
 import Main from '../../routers/Main';
-import store from '../../store';
+import store from '../../redux/store';
 import './App.scss';
 
 const App = () =>{

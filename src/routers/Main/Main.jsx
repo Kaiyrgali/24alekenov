@@ -10,7 +10,9 @@ getUpcomming();
 getRockets();
 getPast();
 
-const Main = () =>{
+const Main = ({ rockets }) =>{
+  console.log('rockets >', rockets);
+
   return (
     <main className="Main">
       <div className="Main-Title">
