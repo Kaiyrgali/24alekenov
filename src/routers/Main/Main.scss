@@ -1,0 +1,43 @@
+.Main {
+  max-width: 1000px;
+  height: 100vh;
+}
+
+.Main-Title {
+  width: max-content;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 10px auto;
+}
+
+.Title-Text{
+  font-size: 16px;
+}
+
+.Title-Logo {
+  height: 16px;
+  width: 16px;
+}
+
+.Main-Launches {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.Launch-Title {
+  color: grey;
+  font-size: 18px;
+  text-transform: uppercase;
+}
+
+.Launch-List {
+  margin-top: 5px;
+  width: 300px;
+  height: calc(100vh - 80px);
+  border: 1px solid black;
+  border-radius: 10px;
+  overflow: auto;
+  padding: 5px;
+}
