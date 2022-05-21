@@ -2,17 +2,18 @@ import React from "react";
 import Card from "../../components/Card";
 import { connect} from 'react-redux';
 import './Main.scss';
+import { fetchRockets } from "../../redux/actions";
 import getUpcomming from '../../services/getUpcomming';
 import getRockets from '../../services/getRockets';
 import getPast from '../../services/getPast';
 
-getUpcomming();
-getRockets();
-getPast();
+// getUpcomming();
+// getRockets();
+// getPast();
 
 const Main = ({ rockets }) =>{
   console.log('rockets >', rockets);
-
+  // console.log('store >', props);
   return (
     <main className="Main">
       <div className="Main-Title">
@@ -55,10 +56,13 @@ const Main = ({ rockets }) =>{
 }
 
 const mapStateToProps = (state) => {
-  console.log (state);
+  console.log ('Main mapStateToProps > ', state);
   return {
-    rockets: state.rockets,
+    rockets: getRockets(state),
   }
 }
 
-export default connect(mapStateToProps, null)(Main);
+
+
+
+export default connect(mapStateToProps, mapStateToProps)(Main);

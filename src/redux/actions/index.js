@@ -1,7 +1,7 @@
 import {
-  fetchCalls,
+  fetchRockets,
 } from './actions';
 
 export {
-  fetchCalls,
+  fetchRockets,
 };

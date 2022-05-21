@@ -9,7 +9,8 @@ const updateRockets = (
 ) => {
   switch (action.type) {
     case 'FETCH_ROCKETS_REQUEST':
-      console.log(state, action)
+      console.log('FETCH_ROCKETS_REQUEST')
+      console.log(state, action.payload)
       return {
         id: action.payload,
       };

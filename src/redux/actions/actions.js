@@ -17,6 +17,7 @@ const rocketsRequested = () => ({
 //   payload: newCall,
 // });
 
+// Тут надо ютубе пересмотреть
 const fetchRockets = (store) => () => (dispatch) => {
   dispatch(rocketsRequested());
   // callstoreService.getCalls()
@@ -25,5 +26,5 @@ const fetchRockets = (store) => () => (dispatch) => {
 };
 
 export {
-  fetchCalls,
+  fetchRockets,
 };
