@@ -1,19 +1,9 @@
-const updateRockets = (
-  state = {
-    rockets: {
-      id: '',
-      name: '',
-    },
-  },
-  action,
-) => {
+const updateRockets = (state = [], action,) => {
   switch (action.type) {
     case 'FETCH_ROCKETS_REQUEST':
       console.log('FETCH_ROCKETS_REQUEST')
-      console.log(state, action.payload)
-      return {
-        id: action.payload,
-      };
+      console.log(action.payload)
+      return action.payload;
 
     default:
       return state.rockets;

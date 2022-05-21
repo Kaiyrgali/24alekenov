@@ -1,18 +1,31 @@
-import React from "react";
+import React, { useEffect, useMemo } from "react";
 import Card from "../../components/Card";
-import { connect} from 'react-redux';
+import { connect, useSelector, useDispatch } from 'react-redux';
 import './Main.scss';
 import { fetchRockets } from "../../redux/actions";
 import getUpcomming from '../../services/getUpcomming';
-import getRockets from '../../services/getRockets';
+import getRockets from '../../services/getApi';
 import getPast from '../../services/getPast';
 
 // getUpcomming();
 // getRockets();
 // getPast();
 
-const Main = ({ rockets }) =>{
-  console.log('rockets >', rockets);
+const Main = () =>{
+  const store = useSelector(store=>store);
+  console.log(' main store >', store);
+  const dispatch = useDispatch();
+
+  const fetch = useMemo(() => {
+    console.log('render useMemo')
+    dispatch({ type: 'FETCH_ROCKETS' })
+    // dispatch({ type: 'FETCH_UPCOMMING' })
+  }, []);
+  console.log('fetch Memo', fetch);
+  
+  // dispatch({ type: 'FETCH_ROCKETS' });
+
+  // console.log('rockets >', rockets);
   // console.log('store >', props);
   return (
     <main className="Main">
@@ -55,14 +68,14 @@ const Main = ({ rockets }) =>{
   )
 }
 
-const mapStateToProps = (state) => {
-  console.log ('Main mapStateToProps > ', state);
-  return {
-    rockets: getRockets(state),
-  }
-}
+// const mapStateToProps = (state) => {
+//   console.log ('Main mapStateToProps > ', state);
+//   return {
+//     rockets: getRockets(state),
+//   }
+// }
 
 
+export default Main;
 
-
-export default connect(mapStateToProps, mapStateToProps)(Main);
+// export default connect(mapStateToProps, null)(Main);
