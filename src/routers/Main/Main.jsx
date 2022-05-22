@@ -1,15 +1,16 @@
 import React, { useEffect, useMemo } from "react";
 import Card from "../../components/Card";
 import { connect, useSelector, useDispatch } from 'react-redux';
+import Spinner from '../../components/Spinner';
 import './Main.scss';
 import { fetchRockets } from "../../redux/actions";
-import getUpcomming from '../../services/getUpcomming';
-import getRockets from '../../services/getApi';
-import getPast from '../../services/getPast';
 
-// getUpcomming();
-// getRockets();
-// getPast();
+const getDate = (day) => {
+  const dateParse = Date.parse(day)
+  const newDate = new Date(dateParse);
+  const dateCard = newDate.toDateString();
+  return dateCard
+}
 
 const Main = () =>{
   const store = useSelector(store=>store);
@@ -19,32 +20,38 @@ const Main = () =>{
   const fetch = useMemo(() => {
     console.log('render useMemo')
     dispatch({ type: 'FETCH_ROCKETS' })
-    // dispatch({ type: 'FETCH_UPCOMMING' })
   }, []);
-  console.log('fetch Memo', fetch);
-  
-  // dispatch({ type: 'FETCH_ROCKETS' });
 
-  // console.log('rockets >', rockets);
-  // console.log('store >', props);
+  const title = (
+    <div className="Title">
+      <h1 className="Title-Text">
+        Explore the space
+      </h1>
+      <img  className="Title-Logo" 
+            src="../earth.svg" 
+            alt="Earth" />
+    </div>
+  )
+
   return (
     <main className="Main">
-      <div className="Main-Title">
-        <h1 className="Title-Text">
-          Explore the space
-        </h1>
-        <img  className="Title-Logo" 
-              src="../earth.svg" 
-              alt="Earth" />
-      </div>
+      {title}
       <div className="Main-Launches">
         <div className="Launch-Col">
           <h2 className="Launch-Title">
             past launches
           </h2>
           <div className="Launch-List">
-            <Card />
-            <Card />
+            {store.PastLaunches === undefined ?
+              <Spinner /> :
+              store.PastLaunches.map((item) => 
+                <Card 
+                  key={item.id}
+                  date={getDate(item.date_local)}
+                  rocket={store.rockets.find((array)=>array[0]===item.rocket)[1] }
+                  name={item.name}
+                />
+              )}; 
           </div>
         </div>
         <div className="Launch-Block">
@@ -52,7 +59,16 @@ const Main = () =>{
             launches
           </h2>
           <div className="Launch-List">
-            <Card />
+            {store.launches === undefined ?
+              <Spinner /> :
+              store.launches.map((item) => 
+                <Card 
+                  key={item.id}
+                  date={getDate(item.date_local)}
+                  rocket={store.rockets.find((array)=>array[0]===item.rocket)[1]}
+                  name={item.name}
+                />
+            )}; 
           </div>
         </div>
         <div className="Launch-Block">
@@ -60,7 +76,7 @@ const Main = () =>{
             my launches
           </h2>
           <div className="Launch-List">
-            <Card />
+
           </div>
         </div>
       </div>

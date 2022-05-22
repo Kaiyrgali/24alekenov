@@ -1,5 +1,5 @@
 import { takeEvery, put } from 'redux-saga/effects';
-import getApi from '../../services/getApi';
+import getApi from '../../services';
 
 export function* fetchRockets() {
   const _apiBase = 'https://api.spacexdata.com/v4/rockets'
