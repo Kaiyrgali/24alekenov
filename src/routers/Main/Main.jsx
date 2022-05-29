@@ -105,11 +105,12 @@ const Main = () =>{
               store.pastLaunches.map((item) => 
                 <Card 
                   key={item.id}
+                  label={item}
                   // draggable={false}
                   date={getDate(item.date_local)}
                   rocket={store.rockets.find((array)=>array[0]===item.rocket)[1] }
                   name={item.name}
-                  dragStartHandler={()=>console.log('1')}
+                  // dragStartHandler={()=>console.log('1')}
                 />
               )}
           </div>

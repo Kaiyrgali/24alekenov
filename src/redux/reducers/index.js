@@ -10,7 +10,7 @@ const reducer = (state, action) => {
       rockets: updateRockets(state, action),
       launches: updateUpcomming(state, action),
       pastLaunches: updatePast(state, action),
-      myLaunches: updateChoice(state, action)
+      myLaunches: updateChoice(state, action),
     }
   );
 };
