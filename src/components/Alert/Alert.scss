@@ -1,0 +1,39 @@
+.Modal {
+  // display: none;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.9);
+  // display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  overflow-y: scroll;
+  padding: 60px 15px;
+}
+
+.Alert {
+  background-color: white;
+  position: absolute;
+  height: 100px;
+  width: 200px;
+  border: 1px solid blue;
+  margin: 0 auto;
+  top: 30%;
+  left: calc(50% - 100px);
+  &-Btns { 
+  margin: 15px auto 0 auto;
+  }
+}
+
+.Alert-Btn {
+  width: 40px;
+  height: 20px;
+  border: none;
+  margin: 5px;
+  &_Green {background-color: green;}
+  &_Red {background-color: red;}
+  &:hover {color: white;}
+}

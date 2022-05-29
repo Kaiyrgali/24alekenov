@@ -5,7 +5,7 @@ const updatePast = (state = [], action,) => {
       return action.payload;
 
     default:
-      return state.PastLaunches;
+      return state.pastLaunches;
   }
 };
 

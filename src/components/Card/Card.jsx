@@ -1,10 +1,25 @@
 import React from "react";
 import './Card.scss';
 
-const Card = ({date, rocket, name}) =>{
-  console.log('in Card >', date, rocket, name)
+const Card = ({ label, draggable, date, rocket, name,
+  dragStartHandler, 
+  // dragEndHandler,
+  //  dragOverHandler, 
+  //  dropHandler 
+  }) =>{
+  // console.log('in Card >', draggable, date, rocket, name)
   return (
-    <div className="Card">
+    <div 
+      className="Card"
+      id={name}
+      draggable={draggable}
+      onDragStart={(e) => dragStartHandler(e, label)}
+      // onDragLeave={(e) => dragEndHandler(e)}
+      // onDragEnd={(e) => dragEndHandler(e)}
+      // onDragOver={(e) => dragOverHandler(e)}
+      // onDrop={(e) => dropHandler(e, label)}
+      // onClick={(e) => clickCard(e)}
+    >
       <h3 className="Card-Name">
         {name}
       </h3>
