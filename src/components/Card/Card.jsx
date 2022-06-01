@@ -1,26 +1,17 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Details from "../../routers/Details";
 import './Card.scss';
 
-const Card = ({ label, draggable, date, rocket, name,
-  dragStartHandler, 
-  // dragEndHandler,
-  //  dragOverHandler, 
-  //  dropHandler 
-  }) =>{
+const Card = ({ label, draggable, date, rocket, name, dragStartHandler, }) => {
   return (
-    <Link to={`/details/${label.id}`}>
+    <Link 
+      to={`/details/${label.id}`}
+      draggable={false}>
       <div 
         className="Card"
         id={name}
         draggable={draggable}
         onDragStart={(e) => dragStartHandler(e, label)}
-        // onDragLeave={(e) => dragEndHandler(e)}
-        // onDragEnd={(e) => dragEndHandler(e)}
-        // onDragOver={(e) => dragOverHandler(e)}
-        // onDrop={(e) => dropHandler(e, label)}
-        // onClick={}
       >
         <h3 className="Card-Name">
           {name}

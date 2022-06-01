@@ -1,10 +1,9 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useState } from "react";
 import Card from "../../components/Card";
 import { useSelector, useDispatch } from 'react-redux';
 import Spinner from '../../components/Spinner';
 import Alert from "../../components/Alert/Alert";
 import './Main.scss';
-import { fetchRockets } from "../../redux/actions";
 
 const getDate = (day) => {
   const dateParse = Date.parse(day)
@@ -15,76 +14,60 @@ const getDate = (day) => {
 
 const Main = () =>{
   const store = useSelector(store=>store);
-  console.log(' main store >', store);
   const dispatch = useDispatch();
   const dropElem = document.getElementById('droptarget');
-  const dragElem = document.getElementById('dragtarget');
+  // const dragElem = document.getElementById('dragtarget');
 
   const [event, setEvent] = useState(null); // текущий Лабел -данные карточки
-  // const [past, setPast] = useState(undefined); // Список сфетченный
-  // const [choice, setChoice] = useState(undefined); // myLaunches
   const [alertStyle, setAlertStyle] = useState('none'); // модальное окно
   const [alertText, setAlertText] = useState('');
 
-  const fetch = useMemo(() => {
-    console.log('render useMemo')
-    dispatch({ type: 'FETCH_ROCKETS' })
-  }, []);
-
-  // useEffect(() => {
-  //   setChoice(store.myLaunches);
-  //     }, [store]);
-
-  const title = ( // Можно выделить в отдельный компонент
+  const title = (
     <div className="Title">
       <h1 className="Title-Text">
         Explore the space
       </h1>
-      <img  className="Title-Logo" // сюда добавить ссылку возвращения на главную
+      <img  className="Title-Logo"
             src="../earth.svg" 
             alt="Earth" />
     </div>
   )
 
-
   const dragStartHandler = (e, label) => {
-    setEvent( prev => label);
+    setEvent( prev => [label, e.target.parentElement.parentElement.id]);
   }
 
-  const dropHandler = (e) => {
+  const addCard = (e) => {
     dropElem.style.backgroundColor = "";
-    setAlertText('Russian warship, go fuck yourself')
-    store.myLaunches.includes(event) ? null : setAlertStyle( prev => 'flex');
-    'Russian warship, go fuck yourself'
-    // console.log(e.target.id)
-    // console.log(dropElem.id)
-    // e.target.id !== 'dragtarget' ? console.log('delete') : console.log('nothing');
+    setAlertText('Do you want to add a new trip into your cart ?');
+    store.myLaunches.includes(event[0]) ? null : setAlertStyle( prev => 'flex');
   }
 
-  function allowDrop(e) {
+  const allowDrop = (e) => {
     e.preventDefault();
-    store.myLaunches.includes(event) ? dropElem.style.backgroundColor = "red" : dropElem.style.backgroundColor = "green";
-    // const dropData = event.dataTransfer.getData("Object");
-    // console.log('allowDrop >', dropData)
-    // event.target.style.border = "4px dotted green";
+    store.myLaunches.includes(event[0]) ? dropElem.style.backgroundColor = "red" : dropElem.style.backgroundColor = "green";
   }
 
-  const deleteCardFromMyLaunches = (e) => {
+  const deleteCard = (e) => {
     dropElem.style.backgroundColor = "";
-    setAlertText('Do you really want to cancel your trip ?')
-    // console.log('delete >>>', e.target)
-    e.target !== '' ? setAlertStyle( prev => 'flex') : null;
+    if (event[1] !== 'dragtarget') {
+      setAlertText('Do you really want to cancel your trip ?')
+      e.target !== '' ? setAlertStyle( prev => 'flex') : null;
+    }
   }
 
   const yesButton = () => {
     setAlertStyle( prev => 'none');
-    alertText ===  'Do you really want to cancel your trip ?' ? dispatch({ type: 'DELETE_MYLAUNCHES', action: event }) : dispatch({ type: 'ADD_MYLAUNCHES', action: event })
+    console.log ('event >>', event)
+    alertText ===  'Do you really want to cancel your trip ?' ? dispatch({ type: 'DELETE_MYLAUNCHES', action: event[0] }) : dispatch({ type: 'ADD_MYLAUNCHES', action: event[0] })
   }
 
   const noButton = () => {
     setAlertStyle( prev => 'none')
   }
-
+  
+  if (!store.rockets) return <Spinner />
+  
   return (
     <main className="Main">
       {title}
@@ -106,7 +89,7 @@ const Main = () =>{
                 <Card 
                   key={item.id}
                   label={item}
-                  // draggable={false}
+                  draggable={false}
                   date={getDate(item.date_local)}
                   rocket={store.rockets.find((array)=>array[0]===item.rocket)[1] }
                   name={item.name}
@@ -120,7 +103,7 @@ const Main = () =>{
             launches
           </h2>
           <div className="Launch-List" id="dragtarget"  onDragOver={(e)=>allowDrop(e)} 
-          onDrop={(e)=>deleteCardFromMyLaunches(e)}>
+          onDrop={(e)=>deleteCard(e)}>
             {store.launches === undefined ?
               <Spinner /> :
               store.launches.map((item) => 
@@ -132,10 +115,6 @@ const Main = () =>{
                   rocket={store.rockets.find((array)=>array[0]===item.rocket)[1]}
                   name={item.name}
                   dragStartHandler={dragStartHandler}
-                  // dragEndHandler={dragEndHandler}
-                  // dragOverHandler={dragOverHandler}
-                  // dropHandler={dropHandler}
-                  // clickCard={clickCard}
                 />
             )}
           </div>
@@ -145,7 +124,7 @@ const Main = () =>{
             my launches
           </h2>
           <div className="Launch-List" id="droptarget"  onDragOver={(e)=>allowDrop(e)} 
-          onDrop={(e)=>dropHandler(e)}
+          onDrop={(e)=>addCard(e)}
           >
             {store.myLaunches === undefined ?
               null :
@@ -158,7 +137,6 @@ const Main = () =>{
                   rocket={store.rockets.find((array)=>array[0]===item.rocket)[1] }
                   name={item.name}
                   dragStartHandler={dragStartHandler}
-                  // onDrop={deleteCardFromMyLaunches}
                 />
               )}
           </div>
@@ -168,14 +146,4 @@ const Main = () =>{
   )
 }
 
-// const mapStateToProps = (state) => {
-//   console.log ('Main mapStateToProps > ', state);
-//   return {
-//     rockets: getRockets(state),
-//   }
-// }
-
-
 export default Main;
-
-// export default connect(mapStateToProps, null)(Main);

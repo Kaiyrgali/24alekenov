@@ -4,11 +4,10 @@ import { useParams, Link } from "react-router-dom";
 import './Details.scss';
 
 const Details = () => {
-  const store = useSelector(store=>store);
-  const [card, setCard] = useState(null)
   const params = useParams();
   const prodId = params.id;
-  console.log('store in Details >', store)
+  const store = useSelector(store=>store);
+  const [card, setCard] = useState(null)
   if (card === null) {
     for (let key in store) {
       const currentCard = store[key].filter(item => item.id === prodId);
