@@ -42,7 +42,9 @@ function Main() {
   const addCard = () => {
     dropElem.style.backgroundColor = '';
     setAlertText('Do you want to add a new trip into your cart ?');
-    store.myLaunches.includes(event[0]) ? null : setAlertStyle((prev) => 'flex');
+    store.myLaunches.includes(event[0])
+      ? setAlertStyle((prev) => prev)
+      : setAlertStyle((prev) => 'flex');
   };
 
   const allowDrop = (e) => {
@@ -56,7 +58,9 @@ function Main() {
     dropElem.style.backgroundColor = '';
     if (event[1] !== 'dragtarget') {
       setAlertText('Do you really want to cancel your trip ?');
-      e.target !== '' ? setAlertStyle((prev) => 'flex') : null;
+      e.target !== ''
+        ? setAlertStyle((prev) => 'flex')
+        : setAlertStyle((prev) => prev);
     }
   };
 
@@ -98,6 +102,7 @@ function Main() {
                   date={getDate(item.date_local)}
                   rocket={store.rockets.find((array) => array[0] === item.rocket)[1]}
                   name={item.name}
+                  dragStartHandler={dragStartHandler}
                 />
               ))}
           </div>

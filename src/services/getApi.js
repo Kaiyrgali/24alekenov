@@ -4,7 +4,6 @@ const getApi = async (url) => {
     throw new Error(`Could not fetch, DataBase received ${res.status}`);
   }
   const data = await res.json();
-  console.log('data>', data);
   return data;
 };
 

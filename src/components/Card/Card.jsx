@@ -1,9 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import './Card.scss';
 
 function Card({
-  label, draggable, date, rocket, name, dragStartHandler = null,
+  label, draggable, date, rocket, name, dragStartHandler,
 }) {
   return (
     <Link
@@ -29,5 +30,14 @@ function Card({
     </Link>
   );
 }
+
+Card.propTypes = {
+  label: PropTypes.object.isRequired,
+  draggable: PropTypes.bool.isRequired,
+  date: PropTypes.string.isRequired,
+  rocket: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  dragStartHandler: PropTypes.func.isRequired,
+};
 
 export default Card;

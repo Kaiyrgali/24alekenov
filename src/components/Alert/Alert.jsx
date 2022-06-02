@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import './Alert.scss';
 
 function Alert({
@@ -10,12 +11,14 @@ function Alert({
         <p className="Alert-Text">{text}</p>
         <div className="Alert-Btns">
           <button
+            type="button"
             className="Alert-Btn Alert-Btn_Green"
             onClick={yesButton}
           >
             Yes
           </button>
           <button
+            type="button"
             className="Alert-Btn Alert-Btn_Red"
             onClick={noButton}
           >
@@ -28,8 +31,10 @@ function Alert({
 }
 
 Alert.propTypes = {
-  text: PropTypes.string,
-  style: PropTypes.string,
-}
+  text: PropTypes.string.isRequired,
+  style: PropTypes.string.isRequired,
+  yesButton: PropTypes.func.isRequired,
+  noButton: PropTypes.func.isRequired,
+};
 
 export default Alert;

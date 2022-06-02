@@ -18,6 +18,9 @@
         "react"
     ],
     "rules": {
-      "linebreak-style": 0
+      "linebreak-style": 0,
+      "no-unused-expressions": ["error", { "allowTernary": true }],
+      "no-restricted-syntax": ["error", "FunctionExpression", "WithStatement", "BinaryExpression[operator='in']"],
+      "react/forbid-prop-types": ["error", { "forbid": ["any", "array", "object"]}]
     }
 }
