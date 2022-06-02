@@ -2,7 +2,6 @@ import React from "react";
 import './Alert.scss';
 
 const Alert = ({ text, style, yesButton, noButton }) => {
-  // console.log('Allert style >', style)
   return (
     <div className="Modal" style={{display: style}}>
       <div className="Alert">

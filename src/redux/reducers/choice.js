@@ -1,5 +1,4 @@
-const initialState = [];
-const updateChoice = (state = initialState, action) => {
+const updateChoice = (state = [], action) => {
   switch (action.type) {
     case 'ADD_MYLAUNCHES':
       return [...state.myLaunches, action.action]
@@ -8,7 +7,6 @@ const updateChoice = (state = initialState, action) => {
       state.myLaunches.splice(index, 1);
       return [...state.myLaunches]
     default:
-      console.log('default.state >', state)
       return [];
   }
 };

@@ -3,9 +3,9 @@ import './NotFound.scss';
 
 const NotFound = () =>{
   return (
-    <h1>
-      Page Not Found
-    </h1>
+    <div>
+      <img src="../404.jpg" alt="Error" className="NotFound" />
+    </div>
   )
 }
 

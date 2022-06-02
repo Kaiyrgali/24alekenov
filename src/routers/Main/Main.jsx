@@ -16,10 +16,8 @@ const Main = () =>{
   const store = useSelector(store=>store);
   const dispatch = useDispatch();
   const dropElem = document.getElementById('droptarget');
-  // const dragElem = document.getElementById('dragtarget');
-
-  const [event, setEvent] = useState(null); // текущий Лабел -данные карточки
-  const [alertStyle, setAlertStyle] = useState('none'); // модальное окно
+  const [event, setEvent] = useState(null);
+  const [alertStyle, setAlertStyle] = useState('none');
   const [alertText, setAlertText] = useState('');
 
   const title = (
@@ -58,7 +56,6 @@ const Main = () =>{
 
   const yesButton = () => {
     setAlertStyle( prev => 'none');
-    console.log ('event >>', event)
     alertText ===  'Do you really want to cancel your trip ?' ? dispatch({ type: 'DELETE_MYLAUNCHES', action: event[0] }) : dispatch({ type: 'ADD_MYLAUNCHES', action: event[0] })
   }
 

@@ -17,9 +17,9 @@ const Details = () => {
       }
     }
   }
+  
   if ( card === null ) return null;
   return (
-
     <div className="Details">
       <Link to="/">
         <h1>
