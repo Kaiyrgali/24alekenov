@@ -90,7 +90,6 @@ const Main = () =>{
                   date={getDate(item.date_local)}
                   rocket={store.rockets.find((array)=>array[0]===item.rocket)[1] }
                   name={item.name}
-                  // dragStartHandler={()=>console.log('1')}
                 />
               )}
           </div>
