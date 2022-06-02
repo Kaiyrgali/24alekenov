@@ -1,70 +1,78 @@
-import React, { useState } from "react";
-import Card from "../../components/Card";
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import Card from '../../components/Card';
 import Spinner from '../../components/Spinner';
-import Alert from "../../components/Alert/Alert";
+import Alert from '../../components/Alert/Alert';
 import './Main.scss';
 
 const getDate = (day) => {
-  const dateParse = Date.parse(day)
+  const dateParse = Date.parse(day);
   const newDate = new Date(dateParse);
   const dateCard = newDate.toDateString();
-  return dateCard
-}
+  return dateCard;
+};
 
-const Main = () =>{
-  const store = useSelector(store=>store);
+function Main() {
+  const store = useSelector((store) => store);
   const dispatch = useDispatch();
   const dropElem = document.getElementById('droptarget');
   const [event, setEvent] = useState(null);
   const [alertStyle, setAlertStyle] = useState('none');
   const [alertText, setAlertText] = useState('');
-
+  const dispatchCard = (text) => {
+    dispatch({ type: text, action: event[0] });
+  };
   const title = (
     <div className="Title">
       <h1 className="Title-Text">
         Explore the space
       </h1>
-      <img  className="Title-Logo"
-            src="../earth.svg" 
-            alt="Earth" />
+      <img
+        className="Title-Logo"
+        src="../earth.svg"
+        alt="Earth"
+      />
     </div>
-  )
+  );
 
   const dragStartHandler = (e, label) => {
-    setEvent( prev => [label, e.target.parentElement.parentElement.id]);
-  }
+    setEvent((prev) => [label, e.target.parentElement.parentElement.id]);
+  };
 
-  const addCard = (e) => {
-    dropElem.style.backgroundColor = "";
+  const addCard = () => {
+    dropElem.style.backgroundColor = '';
     setAlertText('Do you want to add a new trip into your cart ?');
-    store.myLaunches.includes(event[0]) ? null : setAlertStyle( prev => 'flex');
-  }
+    store.myLaunches.includes(event[0]) ? null : setAlertStyle((prev) => 'flex');
+  };
 
   const allowDrop = (e) => {
     e.preventDefault();
-    store.myLaunches.includes(event[0]) ? dropElem.style.backgroundColor = "red" : dropElem.style.backgroundColor = "green";
-  }
+    store.myLaunches.includes(event[0])
+      ? dropElem.style.backgroundColor = 'red'
+      : dropElem.style.backgroundColor = 'green';
+  };
 
   const deleteCard = (e) => {
-    dropElem.style.backgroundColor = "";
+    dropElem.style.backgroundColor = '';
     if (event[1] !== 'dragtarget') {
-      setAlertText('Do you really want to cancel your trip ?')
-      e.target !== '' ? setAlertStyle( prev => 'flex') : null;
+      setAlertText('Do you really want to cancel your trip ?');
+      e.target !== '' ? setAlertStyle((prev) => 'flex') : null;
     }
-  }
+  };
 
   const yesButton = () => {
-    setAlertStyle( prev => 'none');
-    alertText ===  'Do you really want to cancel your trip ?' ? dispatch({ type: 'DELETE_MYLAUNCHES', action: event[0] }) : dispatch({ type: 'ADD_MYLAUNCHES', action: event[0] })
-  }
+    setAlertStyle((prev) => 'none');
+    alertText === 'Do you really want to cancel your trip ?'
+      ? dispatchCard('DELETE_MYLAUNCHES')
+      : dispatchCard('ADD_MYLAUNCHES');
+  };
 
   const noButton = () => {
-    setAlertStyle( prev => 'none')
-  }
-  
-  if (!store.rockets) return <Spinner />
-  
+    setAlertStyle((prev) => 'none');
+  };
+
+  if (!store.rockets) return <Spinner />;
+
   return (
     <main className="Main">
       {title}
@@ -80,66 +88,73 @@ const Main = () =>{
             past launches
           </h2>
           <div className="Launch-List">
-            {store.pastLaunches === undefined ?
-              <Spinner /> :
-              store.pastLaunches.map((item) => 
-                <Card 
+            {store.pastLaunches === undefined
+              ? <Spinner />
+              : store.pastLaunches.map((item) => (
+                <Card
                   key={item.id}
                   label={item}
                   draggable={false}
                   date={getDate(item.date_local)}
-                  rocket={store.rockets.find((array)=>array[0]===item.rocket)[1] }
+                  rocket={store.rockets.find((array) => array[0] === item.rocket)[1]}
                   name={item.name}
                 />
-              )}
+              ))}
           </div>
         </div>
         <div className="Launch-Block">
           <h2 className="Launch-Title">
             launches
           </h2>
-          <div className="Launch-List" id="dragtarget"  onDragOver={(e)=>allowDrop(e)} 
-          onDrop={(e)=>deleteCard(e)}>
-            {store.launches === undefined ?
-              <Spinner /> :
-              store.launches.map((item) => 
-                <Card 
+          <div
+            className="Launch-List"
+            id="dragtarget"
+            onDragOver={(e) => allowDrop(e)}
+            onDrop={(e) => deleteCard(e)}
+          >
+            {store.launches === undefined
+              ? <Spinner />
+              : store.launches.map((item) => (
+                <Card
                   key={item.id}
                   label={item}
-                  draggable={true}
+                  draggable
                   date={getDate(item.date_local)}
-                  rocket={store.rockets.find((array)=>array[0]===item.rocket)[1]}
+                  rocket={store.rockets.find((array) => array[0] === item.rocket)[1]}
                   name={item.name}
                   dragStartHandler={dragStartHandler}
                 />
-            )}
+              ))}
           </div>
         </div>
         <div className="Launch-Block">
           <h2 className="Launch-Title">
             my launches
           </h2>
-          <div className="Launch-List" id="droptarget"  onDragOver={(e)=>allowDrop(e)} 
-          onDrop={(e)=>addCard(e)}
+          <div
+            className="Launch-List"
+            id="droptarget"
+            onDragOver={(e) => allowDrop(e)}
+            onDrop={() => addCard()}
           >
-            {store.myLaunches === undefined ?
-              null :
-              store.myLaunches.map((item) => 
-                <Card 
+            {store.myLaunches === undefined
+              ? null
+              : store.myLaunches.map((item) => (
+                <Card
                   key={item.id}
                   label={item}
-                  draggable={true}
+                  draggable
                   date={getDate(item.date_local)}
-                  rocket={store.rockets.find((array)=>array[0]===item.rocket)[1] }
+                  rocket={store.rockets.find((array) => array[0] === item.rocket)[1]}
                   name={item.name}
                   dragStartHandler={dragStartHandler}
                 />
-              )}
+              ))}
           </div>
         </div>
       </div>
     </main>
-  )
+  );
 }
 
 export default Main;

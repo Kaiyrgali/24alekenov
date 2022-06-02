@@ -1,12 +1,12 @@
-import {useMemo} from "react";
+import { useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 import './Fetch.scss';
 
-const Fetch = () => {
+function Fetch() {
   const dispatch = useDispatch();
   const fetch = useMemo(() => {
-    console.log('render useMemo')
-    dispatch({ type: 'FETCH_ROCKETS' })
+    console.log('render useMemo');
+    dispatch({ type: 'FETCH_ROCKETS' });
   }, []);
 
   return null;

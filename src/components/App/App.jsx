@@ -1,15 +1,15 @@
-import React from "react";
+import React from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import ErrorBoundary from '../ErrorBoundary';
-import Fetch from "../Fetch";
+import Fetch from '../Fetch';
 import Main from '../../routers/Main';
-import Details from "../../routers/Details";
-import NotFound from "../../routers/NotFound";
+import Details from '../../routers/Details';
+import NotFound from '../../routers/NotFound';
 import store from '../../redux/store';
 import './App.scss';
 
-const App = () =>{
+function App() {
   return (
     <Provider store={store}>
       <ErrorBoundary>
@@ -23,7 +23,7 @@ const App = () =>{
         </Router>
       </ErrorBoundary>
     </Provider>
-  )
+  );
 }
 
 export default App;

@@ -1,9 +1,11 @@
-import React from "react";
+import React from 'react';
 import './Alert.scss';
 
-const Alert = ({ text, style, yesButton, noButton }) => {
+function Alert({
+  text, style, yesButton, noButton,
+}) {
   return (
-    <div className="Modal" style={{display: style}}>
+    <div className="Modal" style={{ display: style }}>
       <div className="Alert">
         <p className="Alert-Text">{text}</p>
         <div className="Alert-Btns">
@@ -22,7 +24,12 @@ const Alert = ({ text, style, yesButton, noButton }) => {
         </div>
       </div>
     </div>
-  )
+  );
+}
+
+Alert.propTypes = {
+  text: PropTypes.string,
+  style: PropTypes.string,
 }
 
 export default Alert;

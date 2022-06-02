@@ -1,4 +1,4 @@
-const updatePast = (state = [], action,) => {
+const updatePast = (state = [], action) => {
   switch (action.type) {
     case 'FETCH_PAST_REQUEST':
       return action.payload;

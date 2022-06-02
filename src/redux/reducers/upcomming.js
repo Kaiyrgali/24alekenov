@@ -1,4 +1,4 @@
-const updateUpcomming = (state = [], action,) => {
+const updateUpcomming = (state = [], action) => {
   switch (action.type) {
     case 'FETCH_UPCOMMING_REQUEST':
       return action.payload;

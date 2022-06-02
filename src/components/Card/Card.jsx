@@ -1,13 +1,16 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { Link } from 'react-router-dom';
 import './Card.scss';
 
-const Card = ({ label, draggable, date, rocket, name, dragStartHandler, }) => {
+function Card({
+  label, draggable, date, rocket, name, dragStartHandler = null,
+}) {
   return (
-    <Link 
+    <Link
       to={`/details/${label.id}`}
-      draggable={false}>
-      <div 
+      draggable={false}
+    >
+      <div
         className="Card"
         id={name}
         draggable={draggable}
@@ -24,7 +27,7 @@ const Card = ({ label, draggable, date, rocket, name, dragStartHandler, }) => {
         </h5>
       </div>
     </Link>
-  )
+  );
 }
 
 export default Card;

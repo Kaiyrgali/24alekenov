@@ -1,4 +1,4 @@
-const updateRockets = (state = [], action,) => {
+const updateRockets = (state = [], action) => {
   switch (action.type) {
     case 'FETCH_ROCKETS_REQUEST':
       return action.payload;
